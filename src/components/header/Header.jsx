@@ -1,160 +1,287 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FiMenu, FiX, FiSearch, FiShoppingBag } from "react-icons/fi";
-import { FaWhatsapp, FaPhone } from "react-icons/fa";
-import { HiOutlineShoppingBag } from "react-icons/hi";
+import {
+  FiMenu,
+  FiX,
+  FiSearch,
+  FiHeart,
+} from "react-icons/fi";
+import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
 import CartDrawer from "./CartDrawer";
-import SearchBar from "./SearchBar";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [menuOpen]);
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
-      {/* Top Contact Bar - Modern Design */}
-      <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white">
-        <div className="container mx-auto px-4 py-2.5">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-0">
-            <div className="flex items-center gap-6 text-sm">
-              <a
-                href="tel:+923025089439"
-                className="flex items-center gap-2 hover:text-blue-400 transition-colors duration-200 group"
+    <>
+      <header className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled 
+          ? 'bg-white/70 backdrop-blur-xl shadow-lg border-b border-white/20' 
+          : 'bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100'
+      }`}>
+        {/* Top promotional bar */}
+        <div className="bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 text-white text-center py-2 sm:py-2.5 text-xs sm:text-sm font-medium">
+          <span className="hidden sm:inline">✨ Stay Warm, Stay Stylish - Winter Edit Out Now. </span>
+          <span className="sm:hidden">✨ Winter Edit Out Now! </span>
+          <Link to="/products" className="underline hover:text-blue-300 transition-colors ml-1">
+            Shop Now!
+          </Link>
+        </div>
+
+        {/* Main Header */}
+        <div className="container mx-auto px-3 sm:px-4 lg:px-6">
+          <div className="flex justify-between items-center py-3 sm:py-4 relative">
+            {/* Left section: Mobile Menu & Social Icons */}
+            <div className="flex items-center gap-2 sm:gap-4 min-w-20 sm:min-w-30">
+              <button
+                onClick={() => setMenuOpen(true)}
+                className="lg:hidden p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100/50 rounded-full transition-all duration-200"
+                aria-label="Open menu"
               >
-                <FaPhone className="text-xs group-hover:scale-110 transition-transform" /> 
-                <span className="font-medium">+92 302 5089439</span>
-              </a>
-              <a
-                href="https://wa.me/923025089439"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-green-400 transition-colors duration-200 group"
-              >
-                <FaWhatsapp className="text-base group-hover:scale-110 transition-transform" /> 
-                <span className="font-medium">WhatsApp</span>
-              </a>
+                <FiMenu size={22} />
+              </button>
+              <div className="hidden lg:flex items-center gap-3">
+                <a 
+                  href="https://facebook.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all duration-200"
+                >
+                  <FaFacebookF size={16} />
+                </a>
+                <a 
+                  href="https://instagram.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="p-2 text-gray-500 hover:text-pink-500 hover:bg-pink-50 rounded-full transition-all duration-200"
+                >
+                  <FaInstagram size={16} />
+                </a>
+                <a 
+                  href="https://youtube.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-full transition-all duration-200"
+                >
+                  <FaYoutube size={16} />
+                </a>
+              </div>
             </div>
-            <div className="text-xs md:text-sm text-gray-300">
-              <span className="hidden md:inline">Free Shipping on Orders Over Rs. 2000</span>
-              <span className="md:hidden">Free Shipping Over Rs. 2000</span>
+
+            {/* Center section: Logo */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <Link to="/" className="block">
+                <img
+                  src="/logo.jpg"
+                  alt="AG Logo"
+                  className="h-14 sm:h-16 md:h-20 w-14 sm:w-16 md:w-20 object-cover border-2 border-gray-200 shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200"
+                />
+              </Link>
+            </div>
+
+            {/* Right section: Icons */}
+            <div className="flex items-center gap-1 sm:gap-2 md:gap-3 min-w-20 sm:min-w-30 justify-end">
+              <button 
+                onClick={() => setSearchOpen(true)} 
+                className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 rounded-full transition-all duration-200"
+                aria-label="Search"
+              >
+                <FiSearch className="text-lg sm:text-xl" />
+              </button>
+              <button className="hidden sm:flex relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 rounded-full transition-all duration-200">
+              <FiHeart className="text-lg sm:text-xl" />
+                <span className="absolute top-0 right-0 w-4 h-4 bg-linear-to-r from-red-500 to-pink-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
+                  0
+                </span>
+              </button>
+              <CartDrawer />
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Header - Modern & Clean */}
-      <div className="py-5 px-4">
-        <div className="container mx-auto">
-          {/* Mobile Header */}
-          <div className="flex items-center justify-between md:hidden">
-            <button
-              className="text-2xl text-gray-800 p-2 hover:bg-gray-50 rounded-lg transition-colors"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label="Toggle menu"
+        {/* Bottom Navigation - Desktop */}
+        <nav className="hidden lg:flex justify-center items-center gap-6 xl:gap-10 py-3 border-t border-gray-200/50 bg-white/30 backdrop-blur-sm">
+          <Link 
+            to="/" 
+            className="relative text-gray-700 font-semibold text-sm tracking-wide hover:text-blue-600 transition-colors group"
+          >
+            HOME
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
+          </Link>
+          <Link 
+            to="/about" 
+            className="relative text-gray-700 font-semibold text-sm tracking-wide hover:text-blue-600 transition-colors group"
+          >
+            ABOUT
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
+          </Link>
+          <Link 
+            to="/products" 
+            className="relative text-gray-700 font-semibold text-sm tracking-wide hover:text-blue-600 transition-colors group"
+          >
+            PRODUCTS
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
+          </Link>
+          <Link 
+            to="/contact" 
+            className="relative text-gray-700 font-semibold text-sm tracking-wide hover:text-blue-600 transition-colors group"
+          >
+            CONTACT
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
+          </Link>
+        </nav>
+      </header>
+      
+      {/* Mobile Menu Overlay */}
+      <div 
+        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 transition-all duration-300 lg:hidden ${
+          menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+        }`} 
+        onClick={() => setMenuOpen(false)}
+      >
+        {/* Mobile Menu Drawer */}
+        <div 
+          className={`fixed top-0 left-0 h-full w-70 sm:w-80 bg-white/95 backdrop-blur-xl shadow-2xl z-60 transition-transform duration-300 ease-out ${
+            menuOpen ? 'translate-x-0' : '-translate-x-full'
+          }`} 
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Menu Header */}
+          <div className="flex justify-between items-center p-4 sm:p-5 border-b border-gray-100 bg-linear-to-r from-gray-50 to-white">
+            <h2 className="font-bold text-lg text-gray-800">Menu</h2>
+            <button 
+              onClick={() => setMenuOpen(false)}
+              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
             >
-              {menuOpen ? <FiX /> : <FiMenu />}
+              <FiX size={22} />
             </button>
-
-            <Link to="/" className="flex-shrink-0">
-              <img 
-                src="/logo.jpg" 
-                alt="AG Logo" 
-                className="h-14 w-auto object-contain"
-              />
+          </div>
+          
+          {/* Menu Navigation */}
+          <nav className="flex flex-col p-4 sm:p-5">
+            <Link 
+              to="/" 
+              onClick={() => setMenuOpen(false)} 
+              className="py-3.5 px-3 font-semibold text-gray-800 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
+            >
+              HOME
             </Link>
-
-            <div className="flex items-center gap-2">
-              <CartDrawer />
+            <Link 
+              to="/about" 
+              onClick={() => setMenuOpen(false)} 
+              className="py-3.5 px-3 font-semibold text-gray-800 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
+            >
+              ABOUT
+            </Link>
+            <Link 
+              to="/products" 
+              onClick={() => setMenuOpen(false)} 
+              className="py-3.5 px-3 font-semibold text-gray-800 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
+            >
+              PRODUCTS
+            </Link>
+            <Link 
+              to="/contact" 
+              onClick={() => setMenuOpen(false)} 
+              className="py-3.5 px-3 font-semibold text-gray-800 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
+            >
+              CONTACT
+            </Link>
+          </nav>
+          
+          {/* Social Links */}
+          <div className="absolute bottom-0 left-0 right-0 p-5 border-t border-gray-100 bg-linear-to-r from-gray-50 to-white">
+            <p className="text-xs text-gray-500 mb-3 font-medium">Follow Us</p>
+            <div className="flex items-center gap-3">
+              <a 
+                href="https://facebook.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="p-2.5 bg-blue-50 text-blue-600 rounded-full hover:bg-blue-100 transition-colors"
+              >
+                <FaFacebookF size={18} />
+              </a>
+              <a 
+                href="https://instagram.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="p-2.5 bg-pink-50 text-pink-500 rounded-full hover:bg-pink-100 transition-colors"
+              >
+                <FaInstagram size={18} />
+              </a>
+              <a 
+                href="https://youtube.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="p-2.5 bg-red-50 text-red-600 rounded-full hover:bg-red-100 transition-colors"
+              >
+                <FaYoutube size={18} />
+              </a>
             </div>
           </div>
-
-          {/* Desktop Header */}
-          <div className="hidden md:flex justify-between items-center gap-8">
-            <Link to="/" className="flex-shrink-0 hover:opacity-90 transition-opacity">
-              <img 
-                src="/logo.jpg" 
-                alt="AG Logo" 
-                className="h-16 w-auto object-contain"
-              />
-            </Link>
-
-            <nav className="flex items-center gap-8 flex-1 justify-center">
-              <Link 
-                to="/" 
-                className="text-gray-700 font-semibold text-base hover:text-blue-600 transition-colors duration-200 relative group"
-              >
-                Home
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
-              </Link>
-              <Link 
-                to="/about" 
-                className="text-gray-700 font-semibold text-base hover:text-blue-600 transition-colors duration-200 relative group"
-              >
-                About
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
-              </Link>
-              <Link 
-                to="/products" 
-                className="text-gray-700 font-semibold text-base hover:text-blue-600 transition-colors duration-200 relative group"
-              >
-                Products
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
-              </Link>
-              <Link 
-                to="/contact" 
-                className="text-gray-700 font-semibold text-base hover:text-blue-600 transition-colors duration-200 relative group"
-              >
-                Contact
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
-              </Link>
-            </nav>
-
-            <div className="flex items-center gap-4">
-              <SearchBar />
-              <CartDrawer />
-            </div>
-          </div>
-
-          {/* Mobile Dropdown Menu */}
-          {menuOpen && (
-            <div className="md:hidden bg-white shadow-lg rounded-b-lg mt-2">
-              <nav className="flex flex-col space-y-3 px-6 py-4 text-gray-700">
-                <Link 
-                  to="/" 
-                  onClick={() => setMenuOpen(false)}
-                  className="py-2 border-b border-gray-100 hover:text-blue-600"
-                >
-                  Home
-                </Link>
-                <Link 
-                  to="/about" 
-                  onClick={() => setMenuOpen(false)}
-                  className="py-2 border-b border-gray-100 hover:text-blue-600"
-                >
-                  About
-                </Link>
-                <Link 
-                  to="/products" 
-                  onClick={() => setMenuOpen(false)}
-                  className="py-2 border-b border-gray-100 hover:text-blue-600"
-                >
-                  Products
-                </Link>
-                <Link 
-                  to="/contact" 
-                  onClick={() => setMenuOpen(false)}
-                  className="py-2 hover:text-blue-600"
-                >
-                  Contact
-                </Link>
-                <div className="pt-3">
-                  <SearchBar />
-                </div>
-              </nav>
-            </div>
-          )}
         </div>
       </div>
-    </header>
+
+      {/* Search Overlay */}
+      <div 
+        className={`fixed inset-0 bg-black/70 backdrop-blur-sm z-50 transition-all duration-300 ${
+          searchOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+        }`}
+        onClick={() => setSearchOpen(false)}
+      >
+        <div className="flex flex-col items-center pt-20 sm:pt-24 px-4">
+          <div 
+            className={`w-full max-w-xl transform transition-all duration-300 ${
+              searchOpen ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0'
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search for products..."
+                className="w-full px-5 py-4 pr-12 text-lg bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border-0 focus:outline-none focus:ring-4 focus:ring-blue-500/20 placeholder-gray-400"
+                autoFocus
+              />
+              <FiSearch className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
+            </div>
+            <p className="text-white/60 text-center mt-4 text-sm">Press ESC to close</p>
+          </div>
+          <button 
+            onClick={() => setSearchOpen(false)} 
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-all"
+          >
+            <FiX size={28} />
+          </button>
+        </div>
+      </div>
+    </>
   );
 }
 
