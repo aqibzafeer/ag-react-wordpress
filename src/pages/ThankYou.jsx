@@ -17,7 +17,7 @@ function ThankYou() {
         </div>
 
         {/* Success Message */}
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600 tracking-tight">
           Order Completed Successfully!
         </h1>
 
@@ -41,7 +41,7 @@ function ThankYou() {
 
         {/* Additional Info */}
         <div className="mb-8 text-left bg-gray-50 rounded-lg p-6">
-          <h3 className="font-semibold text-gray-800 mb-3">What's Next?</h3>
+          <h3 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600 tracking-tight">What's Next?</h3>
           <ul className="space-y-2 text-gray-600">
             <li className="flex items-start">
               <span className="text-green-600 mr-2">✓</span>

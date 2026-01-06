@@ -142,7 +142,7 @@ const SingleProduct = () => {
 
           </svg>
 
-          <h3 className="mt-4 text-xl font-medium text-gray-900">Product not found</h3>
+          <h3 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600 tracking-tight">Product not found</h3>
 
           <p className="mt-2 text-gray-600">
 
@@ -184,7 +184,7 @@ const SingleProduct = () => {
 
         <div className="container mx-auto px-4">
 
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-3">Product Details</h2>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600 tracking-tight">Product Details</h2>
 
           <p className="text-lg text-indigo-100 max-w-2xl mx-auto">
 
@@ -306,7 +306,7 @@ const SingleProduct = () => {
 
             <div className="bg-white rounded-xl shadow-md p-6 md:p-8">
 
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600 tracking-tight">
 
                 {product.name}
 
@@ -380,7 +380,7 @@ const SingleProduct = () => {
 
                   <div>
 
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    <h3 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600 tracking-tight">
 
                       Overview
 
@@ -402,7 +402,7 @@ const SingleProduct = () => {
 
                   <div>
 
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    <h3 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600 tracking-tight">
 
                       Description
 
@@ -514,7 +514,7 @@ const SingleProduct = () => {
 
       <div className="container mx-auto px-4 py-12">
 
-        <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600 tracking-tight">
 
           You May Also Like
 

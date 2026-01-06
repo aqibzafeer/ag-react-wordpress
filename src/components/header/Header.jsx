@@ -55,7 +55,6 @@ function Header() {
         {/* Main Header */}
         <div className="container mx-auto px-3 sm:px-4 lg:px-6">
           <div className="flex justify-between items-center py-3 sm:py-4 relative">
-            {/* Left section: Mobile Menu & Social Icons */}
             <div className="flex items-center gap-2 sm:gap-4 min-w-20 sm:min-w-30">
               <button
                 onClick={() => setMenuOpen(true)}
@@ -95,11 +94,7 @@ function Header() {
             {/* Center section: Logo */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
               <Link to="/" className="block">
-                <img
-                  src="/logo.jpg"
-                  alt="AG Logo"
-                  className="h-14 sm:h-16 md:h-20 w-14 sm:w-16 md:w-20 object-cover border-2 border-gray-200 shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200"
-                />
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600 tracking-tight">AG</h1>
               </Link>
             </div>
 
