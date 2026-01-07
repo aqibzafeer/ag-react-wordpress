@@ -1,20 +1,67 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/cart";
 import { toast } from "react-toastify";
 import { formatPrice } from "../utils/formatPrice";
 import { TOAST_CONFIG } from "../constants";
 import { ProductImage, Card } from "./common";
-import { FEATURED_PRODUCTS } from "../data/products";
 
 /**
  * FeaturedProducts Component
- * Displays featured products using static data for optimal SEO and performance
- * No API calls - uses pre-defined product data
+ * Fetches products at runtime (avoids missing build-time static data file).
  */
 const FeaturedProducts = memo(function FeaturedProducts() {
   const navigate = useNavigate();
   const { addToCart } = useCart();
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const fetchFeatured = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("https://cocobee.com.pk/products.json");
+        if (!response.ok) throw new Error("Failed to fetch products");
+
+        const data = await response.json();
+        const all = data?.products || [];
+
+        // Heuristic: use products tagged as Featured, otherwise just take newest 8.
+        const featured = all.filter((p) => p?.tags?.includes("Featured"));
+        const list = (featured.length ? featured : all)
+          .slice()
+          .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+          .slice(0, 8)
+          .map((p) => ({
+            id: p.id,
+            name: p.title,
+            price: parseFloat(p.variants?.[0]?.price) || 0,
+            regular_price: parseFloat(p.variants?.[0]?.compare_at_price) || null,
+            sale_price: parseFloat(p.variants?.[0]?.price) || 0,
+            on_sale:
+              p.variants?.[0]?.compare_at_price &&
+              parseFloat(p.variants?.[0]?.compare_at_price) >
+                parseFloat(p.variants?.[0]?.price),
+            images: [{ src: p.images?.[0]?.src, alt: p.title }],
+            handle: p.handle,
+          }));
+
+        if (mounted) setProducts(list);
+      } catch {
+        if (mounted) setProducts([]);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
+
+    fetchFeatured();
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const handleAddToCart = (product) => {
     addToCart(product);
@@ -43,7 +90,7 @@ const FeaturedProducts = memo(function FeaturedProducts() {
       </div>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {FEATURED_PRODUCTS.map((product, index) => (
+        {products.map((product, index) => (
           <Card 
             key={product.id} 
             className="group"
