@@ -1,9 +1,9 @@
 import HeroSection from "../components/HeroSection";
 import CategoryGrid from "../components/CategoryGrid";
 import FeatureSection from "../components/FeatureSection";
-import FeaturedProducts from "../components/FeaturedProducts";
 import BuySection from "../components/BuySection";
 import OurValues from "../components/OurValues";
+import HomeNewArrivals from "../components/HomeNewArrivals";
 
 function Home() {
   return (
@@ -11,9 +11,9 @@ function Home() {
       <HeroSection />
       <CategoryGrid />      
       <FeatureSection />
+      <HomeNewArrivals />
       <BuySection/>
       <OurValues />
-      <FeaturedProducts />
     </div>
   );
 }
