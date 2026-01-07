@@ -12,9 +12,9 @@ const HeroSection = () => {
       eyebrow="WINTER EDIT 25"
       image="/banner-img.jpeg"
       height="lg"
-      align="left"
+      align="center"
     >
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-4">
+      <div className="flex flex-col items-center justify-center gap-4">
         <button
           onClick={() => navigate("/products")}
           className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-gray-900 text-white font-bold rounded-full shadow-lg hover:bg-gray-700 transition-all transform hover:-translate-y-1"
@@ -23,6 +23,7 @@ const HeroSection = () => {
           <FiArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
         </button>
 
+        {/* ...existing code... */}
       </div>
     </PageHero>
   );

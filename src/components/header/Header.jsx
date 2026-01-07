@@ -24,8 +24,6 @@ function Header() {
       { label: "Home", to: "/" },
       { label: "About", to: "/about" },
       { label: "Products", to: "/products" },
-      { label: "New Arrivals", to: "/new-arrivals", badge: "NEW" },
-      { label: "Most Popular", to: "/most-popular" },
       { label: "Contact", to: "/contact" },
     ],
     []
@@ -187,7 +185,6 @@ function Header() {
           </div>
         </div>
 
-        {/* Desktop Navigation */}
         <nav className="hidden lg:block border-t border-gray-200/50 bg-white/30 backdrop-blur-sm">
           <div className="container mx-auto px-6">
             <div className="flex items-center justify-center gap-2 xl:gap-4 py-3">
@@ -219,14 +216,13 @@ function Header() {
                 );
               })}
 
-              {/* Optional: quick dropdown (placeholder for future categories) */}
               <div className="relative group ml-2">
                 <button
                   type="button"
                   className="inline-flex items-center gap-2 px-3 py-2 rounded-full text-sm font-semibold tracking-wide text-gray-700 hover:text-indigo-700 hover:bg-indigo-50/60 transition-all"
-                  aria-label="More"
+                  aria-label="Top products"
                 >
-                  MORE <FiChevronDown />
+                  TOP PRODUCTS <FiChevronDown />
                 </button>
                 <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 absolute left-1/2 -translate-x-1/2 top-full mt-2 w-56 rounded-2xl bg-white shadow-xl ring-1 ring-black/5 overflow-hidden">
                   <div className="p-2">

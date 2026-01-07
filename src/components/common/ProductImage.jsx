@@ -16,6 +16,8 @@ const ProductImage = memo(({
   lazy = true,
   crossOrigin = "anonymous",
   onClick,
+  fetchPriority = "auto", // "high" | "low" | "auto"
+  srcSet = null, // For responsive images
 }) => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -56,6 +58,8 @@ const ProductImage = memo(({
         loading={lazy ? "lazy" : "eager"}
         crossOrigin={crossOrigin}
         onClick={onClick}
+        fetchPriority={fetchPriority}
+        {...(srcSet && { srcSet })}
       />
     </div>
   );

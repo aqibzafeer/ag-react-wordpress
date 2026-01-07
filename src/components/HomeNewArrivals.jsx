@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { TOAST_CONFIG } from "../constants";
 import { ProductImage, Card } from "./common";
 import { FiShoppingCart, FiArrowRight } from "react-icons/fi";
+import { getShopifyImageSrcSet } from "../utils/imageOptimization";
 
 const HomeNewArrivals = memo(function HomeNewArrivals() {
   const navigate = useNavigate();
@@ -68,6 +69,11 @@ const HomeNewArrivals = memo(function HomeNewArrivals() {
       currency: "PKR",
       minimumFractionDigits: 0,
     }).format(price);
+  };
+
+  // Generate responsive image srcset for product images
+  const getImageSrcSet = (imageUrl) => {
+    return getShopifyImageSrcSet(imageUrl);
   };
 
   if (loading) {
@@ -153,6 +159,9 @@ const HomeNewArrivals = memo(function HomeNewArrivals() {
                     src={product.images?.[0]?.src}
                     alt={product.images?.[0]?.alt || product.name}
                     className="w-full h-72 object-cover transition-all duration-700 group-hover:scale-110"
+                    fetchPriority={index === 0 ? "high" : "auto"}
+                    srcSet={getImageSrcSet(product.images?.[0]?.src)}
+                    lazy={index > 0}
                   />
                   {/* Overlay on hover */}
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300"></div>
@@ -184,7 +193,7 @@ const HomeNewArrivals = memo(function HomeNewArrivals() {
               {/* Content */}
               <div className="p-5">
                 <Link to="/new-arrivals">
-                  <h3 className="text-base font-semibold text-gray-900 mb-3 hover:text-indigo-600 transition-colors line-clamp-2 min-h-[3rem]">
+                  <h3 className="text-base font-semibold text-gray-900 mb-3 hover:text-indigo-600 transition-colors line-clamp-2 min-h-12">
                     {product.name}
                   </h3>
                 </Link>

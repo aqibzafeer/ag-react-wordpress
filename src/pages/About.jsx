@@ -43,16 +43,15 @@ const About = () => {
 
   return (
     <div className="text-gray-800 overflow-hidden">
-      {/* Hero Banner */}
       <PageHero
         title="Our Fashion Story"
         subtitle="Welcome to AG — where fashion meets passion! Since 2015, we've been creating stylish, comfortable, and high-quality clothing that makes you feel confident and look your best."
         eyebrow="ABOUT US"
         image="/banner-img.jpeg"
         height="lg"
-        align="left"
+        align="center"
       >
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap justify-center gap-3">
           <button
             onClick={() => navigate("/products")}
             className="px-8 py-3 bg-white text-gray-900 font-semibold rounded-full shadow-lg hover:bg-white/90 transition-all"
