@@ -29,11 +29,7 @@ function AppRoutes() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/products" element={<Products />} />
           <Route path="/new-arrivals" element={<NewArrival />} />
-<<<<<<< HEAD
           <Route path="/most-popular" element={<MostPopular />} />
-=======
-          <Route path="/categories" element={<Products />} />
->>>>>>> b78a718485967c7a4e0c9faec4e361c453fe5fd0
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/thank-you" element={<ThankYou />} />
