@@ -1,16 +1,19 @@
-import { useEffect, useState } from "react";
+import { memo } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchProducts } from "../api";
 import { useCart } from "../context/cart";
 import { toast } from "react-toastify";
 import { formatPrice } from "../utils/formatPrice";
 import { TOAST_CONFIG } from "../constants";
-import { ProductImage, Card, ProductSkeleton } from "./common";
+import { ProductImage, Card } from "./common";
+import { FEATURED_PRODUCTS } from "../data/products";
 
-const FeaturedProducts = () => {
+/**
+ * FeaturedProducts Component
+ * Displays featured products using static data for optimal SEO and performance
+ * No API calls - uses pre-defined product data
+ */
+const FeaturedProducts = memo(function FeaturedProducts() {
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
 
   const handleAddToCart = (product) => {
@@ -18,44 +21,18 @@ const FeaturedProducts = () => {
     toast.success(`${product.name} added to cart!`, TOAST_CONFIG);
   };
 
-  useEffect(() => {
-    const loadProducts = async () => {
-      try {
-        const data = await fetchProducts();
-        setProducts(data.slice(90, 94));
-      } catch (error) {
-        console.error("Error fetching featured products:", error);
-        toast.error("Failed to load featured products");
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadProducts();
-  }, []);
-
-  if (loading) {
-    return (
-      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-            <span className="bg-clip-text text-transparent bg-linear-to-r from-indigo-600 to-pink-500">
-              Featured Products
-            </span>
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {Array.from({ length: 4 }).map((_, index) => (
-            <ProductSkeleton key={index} />
-          ))}
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section 
+      className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      aria-labelledby="featured-products-title"
+      itemScope
+      itemType="https://schema.org/ItemList"
+    >
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+        <h2 
+          id="featured-products-title"
+          className="text-3xl md:text-4xl font-bold text-gray-900 mb-3"
+        >
           <span className="bg-clip-text text-transparent bg-linear-to-r from-indigo-600 to-pink-500">
             Featured Products
           </span>
@@ -64,41 +41,64 @@ const FeaturedProducts = () => {
           Discover our handpicked selection of premium products
         </p>
       </div>
+      
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {products.map((product) => (
-          <Card key={product.id} className="group">
+        {FEATURED_PRODUCTS.map((product, index) => (
+          <Card 
+            key={product.id} 
+            className="group"
+            itemScope
+            itemType="https://schema.org/Product"
+            itemProp="itemListElement"
+          >
+            <meta itemProp="position" content={String(index + 1)} />
             <div className="relative overflow-hidden bg-gray-100">
-              <Link to={`/product/${product.id}`}>
+              <Link to={`/product/${product.id}`} itemProp="url">
                 <ProductImage
                   src={product.images?.[0]?.src}
-                  alt={product.name}
+                  alt={product.images?.[0]?.alt || product.name}
                   className="w-full h-100 object-cover transition-transform duration-300 group-hover:scale-105"
+                  itemProp="image"
                 />
               </Link>
-              <span className="absolute top-3 right-3 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
-                New
-              </span>
+              {product.on_sale && (
+                <span className="absolute top-3 right-3 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                  Sale
+                </span>
+              )}
             </div>
             <div className="p-5 flex flex-col">
               <Link to={`/product/${product.id}`}>
-                <h3 className="text-lg font-bold text-gray-900 mb-2 hover:text-indigo-600 transition-colors">
+                <h3 
+                  className="text-lg font-bold text-gray-900 mb-2 hover:text-indigo-600 transition-colors"
+                  itemProp="name"
+                >
                   {product.name}
                 </h3>
               </Link>
-              <div className="flex items-center justify-between mt-auto">
+              <meta itemProp="description" content={product.short_description} />
+              <div 
+                className="flex items-center justify-between mt-auto"
+                itemProp="offers"
+                itemScope
+                itemType="https://schema.org/Offer"
+              >
                 <div>
-                  <span className="text-xl font-bold text-indigo-600">
+                  <meta itemProp="priceCurrency" content="PKR" />
+                  <span className="text-xl font-bold text-indigo-600" itemProp="price">
                     {formatPrice(product.sale_price || product.price)}
                   </span>
-                  {product.sale_price && (
+                  {product.sale_price && product.regular_price && (
                     <span className="ml-2 text-sm text-gray-500 line-through">
-                      {formatPrice(product.price)}
+                      {formatPrice(product.regular_price)}
                     </span>
                   )}
+                  <link itemProp="availability" href="https://schema.org/InStock" />
                 </div>
                 <button
                   onClick={() => handleAddToCart(product)}
                   className="bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-4 py-2 rounded-lg font-medium transition-all hover:shadow-md"
+                  aria-label={`Add ${product.name} to cart`}
                 >
                   Add to Cart
                 </button>
@@ -107,16 +107,18 @@ const FeaturedProducts = () => {
           </Card>
         ))}
       </div>
+      
       <div className="text-center mt-12">
         <button
           onClick={() => navigate("/products")}
           className="px-8 py-3 bg-linear-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg shadow-lg hover:from-indigo-700 hover:to-purple-700 transition-all transform hover:-translate-y-1"
+          aria-label="View all products in our collection"
         >
           View All Products
         </button>
       </div>
     </section>
   );
-};
+});
 
 export default FeaturedProducts;
