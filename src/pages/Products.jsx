@@ -12,6 +12,7 @@ import ProductGrid from "../components/ProductGrid";
 import ProductList from "../components/ProductList";
 import Pagination from "../components/Pagination";
 import ProductFilters from "../components/ProductFilters";
+import PageHero from "../components/PageHero";
 
 const Product = () => {
   const { addToCart } = useCart();
@@ -67,67 +68,69 @@ const Product = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className=" bg-linear-to-br from-indigo-700 via-purple-700 to-indigo-800 py-12 md:py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center my-10">
-            <h1 className="text-3xl md:text-5xl font-bold text-white mb-3">
-              Explore Our Collection
-            </h1>
-            <p className="text-base md:text-lg text-indigo-100 max-w-2xl mx-auto">
-              {filteredProducts.length} products available
-            </p>
+      <PageHero
+        title="Explore Our Collection"
+        subtitle={`${filteredProducts.length} products available`}
+        eyebrow="SHOP"
+        image="/banner-img.jpeg"
+        height="md"
+        align="center"
+      >
+        {/* Search Bar */}
+        <div className="max-w-2xl mx-auto mb-6">
+          <div className="relative">
+            <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              placeholder="Search products..."
+              className="w-full pl-12 pr-12 py-3.5 bg-white/95 backdrop-blur rounded-full shadow-lg text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-white/30 transition-all"
+            />
+            {searchTerm && (
+              <button
+                onClick={() => setSearchTerm("")}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                <FiX className="h-5 w-5" />
+              </button>
+            )}
           </div>
+        </div>
 
-          {/* Search Bar */}
-          <div className="max-w-2xl mx-auto mb-6">
-            <div className="relative">
-              <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={handleSearchChange}
-                placeholder="Search products..."
-                className="w-full pl-12 pr-12 py-3.5 bg-white/95 backdrop-blur rounded-full shadow-lg text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-white/30 transition-all"
-              />
-              {searchTerm && (
-                <button
-                  onClick={() => setSearchTerm("")}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                >
-                  <FiX className="h-5 w-5" />
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* Category Pills */}
-          <div className="flex flex-wrap gap-2 justify-center">
+        {/* Category Pills */}
+        <div className="flex flex-wrap gap-2 justify-center">
+          <button
+            className={`px-4 py-2 rounded-full font-medium text-sm transition-all ${
+              categorySort === "all"
+                ? "bg-white text-indigo-700 shadow-lg"
+                : "bg-white/20 text-white hover:bg-white/30"
+            }`}
+            onClick={() => {
+              setCategorySort("all");
+              setCurrentPage(1);
+            }}
+          >
+            All Products
+          </button>
+          {categories.map((cat) => (
             <button
+              key={cat}
               className={`px-4 py-2 rounded-full font-medium text-sm transition-all ${
-                categorySort === "all"
+                categorySort === cat
                   ? "bg-white text-indigo-700 shadow-lg"
                   : "bg-white/20 text-white hover:bg-white/30"
               }`}
-              onClick={() => { setCategorySort("all"); setCurrentPage(1); }}
+              onClick={() => {
+                setCategorySort(cat);
+                setCurrentPage(1);
+              }}
             >
-              All Products
+              {cat}
             </button>
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                className={`px-4 py-2 rounded-full font-medium text-sm transition-all ${
-                  categorySort === cat
-                    ? "bg-white text-indigo-700 shadow-lg"
-                    : "bg-white/20 text-white hover:bg-white/30"
-                }`}
-                onClick={() => { setCategorySort(cat); setCurrentPage(1); }}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+          ))}
         </div>
-      </div>
+      </PageHero>
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">

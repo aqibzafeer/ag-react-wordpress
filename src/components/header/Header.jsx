@@ -6,9 +6,10 @@ import {
   FiSearch,
   FiHeart,
   FiChevronDown,
+  FiShoppingCart,
 } from "react-icons/fi";
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
-import CartDrawer from "./CartDrawer";
+import { useCart } from "../../hooks/useCart";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -16,12 +17,14 @@ function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
+  const { cartCount } = useCart();
 
   const navItems = useMemo(
     () => [
       { label: "Home", to: "/" },
       { label: "About", to: "/about" },
       { label: "Products", to: "/products" },
+      { label: "Categories", to: "/categories" },
       { label: "New Arrivals", to: "/new-arrivals", badge: "NEW" },
       { label: "Contact", to: "/contact" },
     ],
@@ -168,7 +171,18 @@ function Header() {
                 </span>
               </button>
 
-              <CartDrawer />
+              <Link
+                to="/cart"
+                className="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100/70 rounded-full transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-indigo-500/10"
+                aria-label="Cart"
+              >
+                <FiShoppingCart className="text-lg sm:text-xl" />
+                {cartCount > 0 && (
+                  <span className="absolute top-0.5 right-0.5 w-4 h-4 bg-linear-to-r from-indigo-500 to-purple-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
             </div>
           </div>
         </div>
@@ -227,6 +241,12 @@ function Header() {
                       className="block px-3 py-2 rounded-xl text-sm text-gray-700 hover:bg-gray-50"
                     >
                       All Products
+                    </Link>
+                    <Link
+                      to="/new-arrivals"
+                      className="block px-3 py-2 rounded-xl text-sm text-gray-700 hover:bg-gray-50"
+                    >
+                      New Arrivals
                     </Link>
                   </div>
                 </div>

@@ -16,27 +16,25 @@ const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 const NewArrival = lazy(() => import("./pages/NewArrival"));
 const NewArival = lazy(() => import("./pages/NewArival"));
 const SingleArivalProduct = lazy(() => import("./pages/SingleArivalProduct"));
+const Cart = lazy(() => import("./pages/Cart"));
 
 function AppRoutes() {
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <Routes>
-        {/* Main Layout Routes */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/products" element={<Products />} />
           <Route path="/new-arrivals" element={<NewArrival />} />
-          <Route path="/new-arival" element={<NewArival />} />
-          <Route path="/new-arival/:handle" element={<SingleArivalProduct />} />
           <Route path="/categories" element={<Products />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/thank-you" element={<ThankYou />} />
           <Route path="/product/:id" element={<SingleProduct />} />
         </Route>
 
-        {/* WordPress Admin Route */}
         <Route path="/admin" element={<WordPressAdmin />} />
 
         {/* 404 Page */}
