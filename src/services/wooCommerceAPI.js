@@ -29,7 +29,7 @@ export const fetchWooProducts = async (params = {}) => {
   try {
     const response = await wooAPI.get('/products', { 
       params: {
-        per_page: 100,
+        per_page: 500,
         ...params
       }
     });

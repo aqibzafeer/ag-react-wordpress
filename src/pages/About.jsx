@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import PageHero from "../components/PageHero";
 
 const About = () => {
   const navigate = useNavigate();
@@ -41,52 +42,25 @@ const About = () => {
   ];
 
   return (
-    <div className="font-sans text-gray-800 overflow-hidden">
+    <div className="text-gray-800 overflow-hidden">
       {/* Hero Banner */}
-      <section 
-        initial="hidden"
-        animate="visible"
-        variants={container}
-        className="relative h-[80vh] min-h-125 bg-black overflow-hidden"
+      <PageHero
+        title="Our Fashion Story"
+        subtitle="Welcome to AG — where fashion meets passion! Since 2015, we've been creating stylish, comfortable, and high-quality clothing that makes you feel confident and look your best."
+        eyebrow="ABOUT US"
+        image="/banner-img.jpeg"
+        height="lg"
+        align="left"
       >
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200')] bg-cover bg-center opacity-20" />
-        <div className="container mx-auto px-6 h-full flex items-center relative z-10">
-          <div 
-            variants={item}
-            className="max-w-2xl"
+        <div className="flex flex-wrap gap-3">
+          <button
+            onClick={() => navigate("/categories")}
+            className="px-8 py-3 bg-white text-gray-900 font-semibold rounded-full shadow-lg hover:bg-white/90 transition-all"
           >
-            <motion.h1 
-              className="text-4xl md:text-6xl font-serif font-bold text-white mb-4"
-              variants={item}
-            >
-            
-     <span className="bg-clip-text text-transparent bg-linear-to-r from-indigo-600 to-pink-500">
-        Our Fashion Story
-        </span> 
-
-              
-            </motion.h1>
-            <motion.p 
-              className="text-lg md:text-xl text-white/90 mb-8"
-              variants={item}
-            >
-     <span className="bg-clip-text text-transparent bg-white">
-Welcome to AG — where fashion meets passion! Since 2015, we've been creating stylish, comfortable, and high-quality clothing that makes you feel confident and look your best.        </span> 
-
-
-
-            </motion.p>
-            <motion.button 
-              onClick={() => navigate("/categories")}
-        className="px-8 py-3 bg-linear-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg shadow-lg hover:from-indigo-700 hover:to-purple-700 transition-all transform hover:-translate-y-1"              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              variants={item}
-            >
-              Shop Our Collections
-            </motion.button>
-          </div>
+            Shop Our Collections
+          </button>
         </div>
-      </section>
+      </PageHero>
 
       {/* Core Values Section */}
       <section 

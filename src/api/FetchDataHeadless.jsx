@@ -156,7 +156,7 @@ export const fetchCategories = async () => {
   try {
     const response = await wooCommerceAPI.get("/products/categories", {
       params: {
-        per_page: 100,
+        per_page: 500,
       },
     });
     return response.data;
@@ -672,19 +672,12 @@ export const deleteOrder = async (orderId) => {
   }
 };
 
-//═══════════════════════════════════════════════════════════════════════════════
-// 🎟️ COUPON ENDPOINTS - DISCOUNTS & PROMOTIONS
-//═══════════════════════════════════════════════════════════════════════════════
 
-/**
- * Get all available coupons
- * GET /wp-json/wc/v3/coupons
- */
 export const getCoupons = async () => {
   try {
     const response = await wooCommerceAPI.get("/coupons", {
       params: {
-        per_page: 100,
+        per_page: 500,
       },
     });
     return response.data;

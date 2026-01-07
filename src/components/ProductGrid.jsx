@@ -14,7 +14,7 @@ const ProductGrid = ({ products, handleAddToCart, isLoading = false }) => {
   // Show skeleton while loading
   if (isLoading) {
     return (
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
         {Array.from({ length: 12 }).map((_, index) => (
           <ProductSkeleton key={index} />
         ))}
@@ -23,7 +23,7 @@ const ProductGrid = ({ products, handleAddToCart, isLoading = false }) => {
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
       {products.map((product) => {
         const productLink = product.handle ? `/new-arival/${product.handle}` : `/product/${product.id}`;
         return (
@@ -90,7 +90,10 @@ const ProductGrid = ({ products, handleAddToCart, isLoading = false }) => {
             </div>
 
             <button
-              onClick={() => handleAddToCart(product)}
+              onClick={() => {
+                handleAddToCart(product);
+                window.dispatchEvent(new Event("open-cart-drawer"));
+              }}
               className="mt-4 w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 px-4 rounded-xl font-medium text-sm transition-all hover:shadow-lg active:scale-95"
             >
               <FiShoppingCart className="w-4 h-4" />

@@ -1,9 +1,16 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useLocation } from "react-router-dom";
-import { fetchWooProducts } from "../services/wooCommerceAPI";
+import { fetchProducts } from "../api/FetchDataHeadless";
 import { toast } from "react-toastify";
 import useSearch from "../context/useSearch";
 import useDebounce from "./useDebounce";
+
+// Simple cache (in-memory) to avoid re-fetching while the app is running
+let PRODUCTS_CACHE = null;
+let PRODUCTS_CACHE_AT = 0;
+
+const PRODUCTS_CACHE_KEY = "ag_products_cache_v1";
+const PRODUCTS_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -36,7 +43,56 @@ export const useProducts = () => {
     const loadProducts = async () => {
       setLoading(true);
       try {
-        const data = await fetchWooProducts({ per_page: 100 });
+        const now = Date.now();
+
+        // 1) In-memory cache
+        if (PRODUCTS_CACHE && now - PRODUCTS_CACHE_AT < PRODUCTS_CACHE_TTL_MS) {
+          const normalized = PRODUCTS_CACHE;
+          setProducts(normalized);
+
+          const cats = new Set(["Kids", "Boys", "Girls", "Men", "Women"]);
+          normalized.forEach((product) => {
+            product.categories?.forEach((cat) => {
+              if (cat?.name) cats.add(cat.name);
+            });
+          });
+          setCategories(Array.from(cats));
+          return;
+        }
+
+        // 2) sessionStorage cache
+        try {
+          const raw = sessionStorage.getItem(PRODUCTS_CACHE_KEY);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (
+              parsed &&
+              Array.isArray(parsed.data) &&
+              typeof parsed.at === "number" &&
+              now - parsed.at < PRODUCTS_CACHE_TTL_MS
+            ) {
+              PRODUCTS_CACHE = parsed.data;
+              PRODUCTS_CACHE_AT = parsed.at;
+
+              const normalized = parsed.data;
+              setProducts(normalized);
+
+              const cats = new Set(["Kids", "Boys", "Girls", "Men", "Women"]);
+              normalized.forEach((product) => {
+                product.categories?.forEach((cat) => {
+                  if (cat?.name) cats.add(cat.name);
+                });
+              });
+              setCategories(Array.from(cats));
+              return;
+            }
+          }
+        } catch {
+          // ignore storage parse errors
+        }
+
+        // 3) Network fetch (ALL products by iterating pages internally)
+        const data = await fetchProducts({ per_page: 100 });
         const normalized = (Array.isArray(data) ? data : []).map((p) => ({
           ...p,
           name: String(p?.name ?? ""),
@@ -49,7 +105,20 @@ export const useProducts = () => {
           categories: Array.isArray(p?.categories) ? p.categories : [],
           images: Array.isArray(p?.images) ? p.images : [],
         }));
+
+        PRODUCTS_CACHE = normalized;
+        PRODUCTS_CACHE_AT = now;
+        try {
+          sessionStorage.setItem(
+            PRODUCTS_CACHE_KEY,
+            JSON.stringify({ at: now, data: normalized })
+          );
+        } catch {
+          // if storage quota is exceeded, just skip persisting
+        }
+
         setProducts(normalized);
+
         const cats = new Set(["Kids", "Boys", "Girls", "Men", "Women"]);
         normalized.forEach((product) => {
           product.categories?.forEach((cat) => {

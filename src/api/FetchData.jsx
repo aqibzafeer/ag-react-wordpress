@@ -97,7 +97,7 @@ export const fetchProducts = async (params = {}) => {
     let allProducts = [];
     let page = 1;
     let hasMorePages = true;
-    const perPage = params.per_page || 100; // WooCommerce max per page is 100
+    const perPage = params.per_page || 500; // WooCommerce max per page is 100
 
     // Fetch all pages until we get all products
     while (hasMorePages) {
@@ -150,7 +150,7 @@ export const fetchCategories = async () => {
   try {
     const response = await wooCommerceAPI.get("/products/categories", {
       params: {
-        per_page: 100,
+        per_page: 500,
       },
     });
     return response.data;

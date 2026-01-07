@@ -6,9 +6,10 @@ import {
   FiSearch,
   FiHeart,
   FiChevronDown,
+  FiShoppingCart,
 } from "react-icons/fi";
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
-import CartDrawer from "./CartDrawer";
+import { useCart } from "../../hooks/useCart";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -16,6 +17,7 @@ function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
+  const { cartCount } = useCart();
 
   const navItems = useMemo(
     () => [
@@ -23,6 +25,7 @@ function Header() {
       { label: "About", to: "/about" },
       { label: "Products", to: "/products" },
       { label: "New Arrivals", to: "/new-arrivals", badge: "NEW" },
+      { label: "Most Popular", to: "/most-popular" },
       { label: "Contact", to: "/contact" },
     ],
     []
@@ -168,7 +171,18 @@ function Header() {
                 </span>
               </button>
 
-              <CartDrawer />
+              <Link
+                to="/cart"
+                className="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100/70 rounded-full transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-indigo-500/10"
+                aria-label="Cart"
+              >
+                <FiShoppingCart className="text-lg sm:text-xl" />
+                {cartCount > 0 && (
+                  <span className="absolute top-0.5 right-0.5 w-4 h-4 bg-linear-to-r from-indigo-500 to-purple-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
             </div>
           </div>
         </div>
@@ -217,17 +231,19 @@ function Header() {
                 <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 absolute left-1/2 -translate-x-1/2 top-full mt-2 w-56 rounded-2xl bg-white shadow-xl ring-1 ring-black/5 overflow-hidden">
                   <div className="p-2">
                     <Link
-                      to="/categories"
+                      to="/most-popular"
                       className="block px-3 py-2 rounded-xl text-sm text-gray-700 hover:bg-gray-50"
                     >
-                      Categories
+                      Most Popular
                     </Link>
+
                     <Link
-                      to="/products"
+                      to="/new-arrivals"
                       className="block px-3 py-2 rounded-xl text-sm text-gray-700 hover:bg-gray-50"
                     >
-                      All Products
+                      New Arrivals
                     </Link>
+
                   </div>
                 </div>
               </div>
@@ -236,7 +252,6 @@ function Header() {
         </nav>
       </header>
 
-      {/* Mobile Drawer Overlay */}
       <div
         className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 transition-all duration-300 lg:hidden ${
           menuOpen ? "opacity-100 visible" : "opacity-0 invisible"
@@ -244,7 +259,6 @@ function Header() {
         onClick={() => setMenuOpen(false)}
         aria-hidden={!menuOpen}
       >
-        {/* Mobile Drawer */}
         <div
           className={`fixed top-0 left-0 h-full w-[85vw] max-w-90 bg-white/95 backdrop-blur-xl shadow-2xl z-60 transition-transform duration-300 ease-out ${
             menuOpen ? "translate-x-0" : "-translate-x-full"
