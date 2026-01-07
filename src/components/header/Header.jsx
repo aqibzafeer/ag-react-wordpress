@@ -24,6 +24,7 @@ function Header() {
       { label: "Home", to: "/" },
       { label: "About", to: "/about" },
       { label: "Products", to: "/products" },
+      { label: "Categories", to: "/categories" },
       { label: "New Arrivals", to: "/new-arrivals", badge: "NEW" },
       { label: "Most Popular", to: "/most-popular" },
       { label: "Contact", to: "/contact" },
@@ -243,7 +244,16 @@ function Header() {
                     >
                       New Arrivals
                     </Link>
+<<<<<<< HEAD
 
+=======
+                    <Link
+                      to="/new-arrivals"
+                      className="block px-3 py-2 rounded-xl text-sm text-gray-700 hover:bg-gray-50"
+                    >
+                      New Arrivals
+                    </Link>
+>>>>>>> b78a718485967c7a4e0c9faec4e361c453fe5fd0
                   </div>
                 </div>
               </div>
