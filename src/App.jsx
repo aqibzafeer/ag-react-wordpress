@@ -2,6 +2,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import AppRoutes from "./routes";
 import SearchProvider from "./context/SearchProvider";
 import CartProvider from "./context/CartProvider";
+import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -10,6 +11,7 @@ function App() {
     <Router>
       <CartProvider>
         <SearchProvider>
+          <ScrollToTop />
           <AppRoutes />
           <ToastContainer
             position="top-center"

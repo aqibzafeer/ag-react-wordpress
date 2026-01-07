@@ -7,7 +7,7 @@ const HeroSection = () => {
   return (
     <section className="relative bg-gray-50 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center justify-between min-h-screen py-20 lg:py-0">
+        <div className="flex flex-col lg:flex-row items-center justify-between min-h-[calc(100vh-96px)] lg:min-h-[calc(100vh-144px)] pt-6 lg:pt-0">
           <div className="lg:w-1/2 max-w-lg text-center lg:text-left z-10">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600 tracking-tight">
               Style That Defines You
@@ -39,7 +39,7 @@ const HeroSection = () => {
           </div>
 
           {/* Right Image */}
-          <div className="relative lg:w-1/2 mt-12 lg:mt-0 h-[60vh] lg:h-screen">
+          <div className="relative lg:w-1/2 mt-10 lg:mt-0 h-[55vh] lg:h-[calc(100vh-144px)]">
             <div className="absolute inset-0">
               <img
                 src="/banner-img.jpeg"

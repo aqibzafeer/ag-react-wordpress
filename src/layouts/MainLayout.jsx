@@ -4,13 +4,10 @@ import { Outlet } from "react-router-dom";
 
 const MainLayout = () => (
   <div className="min-h-screen flex flex-col">
-    {/* Fixed Header */}
-    <div className="fixed top-0 left-0 right-0 z-50">
-      <Header />
-    </div>
+    {/* Header is sticky internally */}
+    <Header />
 
-    {/* Main Content with Top Padding to avoid overlap and Bottom Margin */}
-    <main className="flex-grow pt-[80px] pb-[30px]">
+    <main className="grow">
       <Outlet />
     </main>
 

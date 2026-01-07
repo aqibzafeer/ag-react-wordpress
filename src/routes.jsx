@@ -13,6 +13,9 @@ const Checkout = lazy(() => import("./pages/Checkout"));
 const ThankYou = lazy(() => import("./pages/ThankYou"));
 const SingleProduct = lazy(() => import("./pages/SingleProduct"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
+const NewArrival = lazy(() => import("./pages/NewArrival"));
+const NewArival = lazy(() => import("./pages/NewArival"));
+const SingleArivalProduct = lazy(() => import("./pages/SingleArivalProduct"));
 
 function AppRoutes() {
   return (
@@ -24,6 +27,9 @@ function AppRoutes() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/new-arrivals" element={<NewArrival />} />
+          <Route path="/new-arival" element={<NewArival />} />
+          <Route path="/new-arival/:handle" element={<SingleArivalProduct />} />
           <Route path="/categories" element={<Products />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/thank-you" element={<ThankYou />} />

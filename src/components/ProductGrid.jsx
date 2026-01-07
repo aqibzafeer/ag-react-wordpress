@@ -24,20 +24,22 @@ const ProductGrid = ({ products, handleAddToCart, isLoading = false }) => {
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-      {products.map((product) => (
+      {products.map((product) => {
+        const productLink = product.handle ? `/new-arival/${product.handle}` : `/product/${product.id}`;
+        return (
         <div
           key={product.id}
           className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100"
         >
-          <Link to={`/product/${product.id}`} className="block relative">
+          <Link to={productLink} className="block relative" target="_blank" rel="noopener noreferrer">
             <div className="aspect-square overflow-hidden bg-gray-100">
               <img
                 src={
                   imageErrors[product.id]
                     ? "/product-images/product-9.jpg"
-                    : getImageUrl(product.images?.[0]?.src)
+                    : getImageUrl(product.images?.[0]?.src) || product.image
                 }
-                alt={product.name}
+                alt={product.name || product.title}
                 onError={() => handleImageError(product.id)}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 crossOrigin="anonymous"
@@ -70,9 +72,9 @@ const ProductGrid = ({ products, handleAddToCart, isLoading = false }) => {
                 {product.categories[0].name}
               </span>
             )}
-            <Link to={`/product/${product.id}`}>
+            <Link to={productLink} target="_blank" rel="noopener noreferrer">
               <h3 className="mt-1 text-sm md:text-base font-semibold text-gray-900 line-clamp-2 hover:text-indigo-600 transition-colors">
-                {product.name}
+                {product.name || product.title}
               </h3>
             </Link>
             
@@ -96,7 +98,7 @@ const ProductGrid = ({ products, handleAddToCart, isLoading = false }) => {
             </button>
           </div>
         </div>
-      ))}
+      )})}
     </div>
   );
 };
