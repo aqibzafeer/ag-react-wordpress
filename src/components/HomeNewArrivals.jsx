@@ -169,11 +169,11 @@ const HomeNewArrivals = memo(function HomeNewArrivals() {
                 
                 {/* Badges */}
                 <div className="absolute top-4 left-4 flex flex-col gap-2">
-                  <span className="bg-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg backdrop-blur-sm">
+                  <span className="bg-green-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg backdrop-blur-sm">
                     NEW
                   </span>
                   {product.on_sale && (
-                    <span className="bg-rose-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg backdrop-blur-sm">
+                    <span className="bg-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg backdrop-blur-sm">
                       SALE
                     </span>
                   )}

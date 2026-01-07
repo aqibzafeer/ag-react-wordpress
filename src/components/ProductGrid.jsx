@@ -83,7 +83,7 @@ const ProductGrid = ({ products, handleAddToCart, isLoading = false }) => {
                   {formatPrice(product.sale_price || product.price)}
                 </span>
                 {product.sale_price && product.sale_price < product.price && (
-                  <span className="text-sm text-gray-400 line-through">
+                  <span className="text-sm text-gray-600 line-through">
                     {formatPrice(product.price)}
                   </span>
                 )}

@@ -250,7 +250,7 @@ function NewArrival() {
                         </span>
                         {firstVariant?.compare_at_price &&
                           parseFloat(firstVariant.compare_at_price) > parseFloat(firstVariant.price) && (
-                            <span className="text-sm text-gray-400 line-through">
+                            <span className="text-sm text-gray-600 line-through">
                               {formatPrice(firstVariant.compare_at_price)}
                             </span>
                           )}
