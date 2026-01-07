@@ -24,7 +24,6 @@ function Header() {
       { label: "Home", to: "/" },
       { label: "About", to: "/about" },
       { label: "Products", to: "/products" },
-      { label: "Categories", to: "/categories" },
       { label: "New Arrivals", to: "/new-arrivals", badge: "NEW" },
       { label: "Most Popular", to: "/most-popular" },
       { label: "Contact", to: "/contact" },

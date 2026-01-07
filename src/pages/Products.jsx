@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { FiSearch, FiX } from "react-icons/fi";
 import { useCart } from "../hooks/useCart";
 import { useProducts } from "../hooks/useProducts";
-import LoadingSpinner from "../components/LoadingSpinner";
 import ProductSkeleton from "../components/ProductSkeleton";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

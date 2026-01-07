@@ -54,7 +54,7 @@ const About = () => {
       >
         <div className="flex flex-wrap gap-3">
           <button
-            onClick={() => navigate("/categories")}
+            onClick={() => navigate("/products")}
             className="px-8 py-3 bg-white text-gray-900 font-semibold rounded-full shadow-lg hover:bg-white/90 transition-all"
           >
             Shop Our Collections

@@ -28,6 +28,7 @@ function AppRoutes() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/categories" element={<Products />} />
           <Route path="/new-arrivals" element={<NewArrival />} />
           <Route path="/most-popular" element={<MostPopular />} />
           <Route path="/checkout" element={<Checkout />} />
