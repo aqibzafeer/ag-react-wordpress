@@ -15,9 +15,8 @@ const SingleProduct = lazy(() => import("./pages/SingleProduct"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 const NewArrival = lazy(() => import("./pages/NewArrival"));
 const MostPopular = lazy(() => import("./pages/MostPopular"));
-const NewArival = lazy(() => import("./pages/NewArival"));
-const SingleArivalProduct = lazy(() => import("./pages/SingleArivalProduct"));
 const Cart = lazy(() => import("./pages/Cart"));
+// NOTE: Removed duplicate NewArival.jsx and SingleArivalProduct.jsx - use NewArrival.jsx instead
 
 function AppRoutes() {
   return (

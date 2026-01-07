@@ -29,7 +29,7 @@ const OurValues = () => {
               <h2 className="text-xl font-bold text-gray-900">High Standards</h2>
             </div>
             <p className="text-gray-600">
-              We know that good clothes should be not only stylish, but also high-quality. We do not compromise and use only the best fabrics and accessories. MELANI clothes can be worn for years and remain in good condition.
+              We know that good clothes should be not only stylish, but also high-quality. We do not compromise and use only the best fabrics and accessories. Azlan Garments clothes can be worn for years and remain in excellent condition.
             </p>
           </div>
 
@@ -46,7 +46,7 @@ const OurValues = () => {
               <h2 className="text-xl font-bold text-gray-900">Saving the Planet</h2>
             </div>
             <p className="text-gray-600">
-              We try to use only natural fabrics, as well as faux leather and fur. We create clothes that can be mixed and matched with each other. You can cut your wardrobe and not buy a new item every month to look beautiful.
+              We try to use only natural fabrics, as well as ethical materials. We create clothes that can be mixed and matched with each other. You can build a versatile wardrobe without buying new items every month to look beautiful.
             </p>
           </div>
 
@@ -64,7 +64,7 @@ const OurValues = () => {
               <h2 className="text-xl font-bold text-gray-900">Attention to Details</h2>
             </div>
             <p className="text-gray-600">
-              Most of the look is the details. We pay attention to all the components. Buying ready-made clothes in MELANI or ordering bespoke tailoring, you get a real masterpiece, inspired by the fashion of the streets of the big city.
+              Most of the look is the details. We pay attention to all the components. Whether you buy ready-made clothes from Azlan Garments or order bespoke tailoring, you get a real masterpiece inspired by contemporary fashion.
             </p>
           </div>
         </div>

@@ -1,18 +1,41 @@
 {
-  "name": "AG - Premium Fashion & Clothing",
+  "name": "Azlan Garments - Premium Fashion & Clothing",
   "short_name": "AG",
-  "description": "Your trusted destination for premium fashion. Shop stylish, comfortable, and high-quality clothing.",
+  "description": "Your trusted destination for premium fashion in Pakistan. Shop stylish, comfortable, and high-quality clothing.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4F46E5",
   "orientation": "portrait-primary",
+  "categories": ["shopping", "fashion", "lifestyle"],
   "icons": [
     {
-      "src": "/vite.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "src": "/banner-img.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "/banner-img.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Azlan Garments Homepage"
+    },
+    {
+      "src": "/screenshots/products.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Shop Products"
     }
   ]
 }

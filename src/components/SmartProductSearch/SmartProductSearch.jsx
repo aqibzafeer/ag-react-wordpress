@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { extractKeywords } from "../../utils/extractKeywords";
-import { fetchProducts } from "../../pages/api/FetchData";
+import { fetchProducts } from "../../api/FetchData";
 import { toast } from "react-toastify";
 
 const SmartProductSearch = () => {

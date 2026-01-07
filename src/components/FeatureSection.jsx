@@ -2,7 +2,7 @@ const features = [
   {
     icon: "/box.svg",
     title: "Free Shipping",
-    description: "Free shipping on order over €50",
+    description: "Free shipping on orders over Rs. 5,000",
   },
   {
     icon: "/moneyback.svg",

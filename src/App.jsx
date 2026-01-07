@@ -1,7 +1,7 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import AppRoutes from "./routes";
 import SearchProvider from "./context/SearchProvider";
-import CartProvider from "./context/CartProvider";
+import { CartProvider } from "./context/cart";
 import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
