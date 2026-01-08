@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { fetchWooProduct } from "../services/wooCommerceAPI";
-import { getImageUrl } from "../api/FetchData";
+import { fetchSingleProduct, getImageUrl } from "../api";
 import { useCart } from "../hooks/useCart";
 import FeaturedProducts from "../components/FeaturedProducts";
 import { toast } from "react-toastify";
@@ -38,7 +37,7 @@ const SingleProduct = () => {
 
       try {
 
-        const data = await fetchWooProduct(id);
+        const data = await fetchSingleProduct(id);
 
         setProduct(data);
 

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import CartContext from "../context/CartContext";
-import { createWooOrder } from "../services/wooCommerceAPI";
+import { createOrder } from "../api";
 import AuthService from "../services/AuthService";
 import { toast } from "react-toastify";
 import { FiArrowLeft, FiShoppingCart, FiCreditCard, FiTruck, FiCheckCircle } from "react-icons/fi";
@@ -74,7 +74,7 @@ function Checkout() {
     };
 
     try {
-      const order = await createWooOrder(orderData);
+      const order = await createOrder(orderData);
       
       toast.success(`Order #${order.id} created successfully!`, {
         position: "bottom-right",

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createProduct } from "../api/FetchData";
+import { createProduct } from "../api";
 import { toast } from "react-toastify";
 import { FiSave, FiX, FiImage, FiDollarSign, FiTag, FiFileText, FiPackage } from "react-icons/fi";
 

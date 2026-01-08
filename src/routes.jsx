@@ -13,10 +13,9 @@ const Checkout = lazy(() => import("./pages/Checkout"));
 const ThankYou = lazy(() => import("./pages/ThankYou"));
 const SingleProduct = lazy(() => import("./pages/SingleProduct"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
-const NewArrival = lazy(() => import("./pages/NewArrival"));
-const MostPopular = lazy(() => import("./pages/MostPopular"));
+const Trending = lazy(() => import("./pages/Trending"));
 const Cart = lazy(() => import("./pages/Cart"));
-// NOTE: Removed duplicate NewArival.jsx and SingleArivalProduct.jsx - use NewArrival.jsx instead
+// NOTE: /new-arrivals and /most-popular are merged into /trending
 
 function AppRoutes() {
   return (
@@ -28,8 +27,12 @@ function AppRoutes() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/products" element={<Products />} />
           <Route path="/categories" element={<Products />} />
-          <Route path="/new-arrivals" element={<NewArrival />} />
-          <Route path="/most-popular" element={<MostPopular />} />
+
+          {/* Merged page */}
+          <Route path="/trending" element={<Trending />} />
+          <Route path="/new-arrivals" element={<Trending />} />
+          <Route path="/most-popular" element={<Trending />} />
+
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/thank-you" element={<ThankYou />} />

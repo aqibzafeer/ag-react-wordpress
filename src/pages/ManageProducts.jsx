@@ -4,7 +4,7 @@ import {
   deleteProduct,
   updateProduct,
   createProduct,
-} from "../api/FetchData";
+} from "../api";
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);

@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useLocation } from "react-router-dom";
-import { fetchProducts } from "../api/FetchDataHeadless";
+import { fetchProducts } from "../api";
 import { toast } from "react-toastify";
 import useSearch from "../context/useSearch";
 import useDebounce from "./useDebounce";

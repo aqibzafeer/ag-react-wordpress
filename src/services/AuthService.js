@@ -1,4 +1,4 @@
-import { loginCustomer, logoutCustomer, registerCustomer, getCustomerProfile } from "../api/FetchDataHeadless";
+import { loginCustomer, logoutCustomer, registerCustomer, getCustomerProfile } from "../api";
 
 /**
  * Authentication Service for Headless WooCommerce

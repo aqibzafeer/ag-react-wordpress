@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { fetchProducts } from "../api/FetchData";
+import { fetchProducts } from "../api";
 import { useCart } from "../hooks/useCart";
 
 const CategoryTShirts = () => {
