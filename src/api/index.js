@@ -12,11 +12,12 @@ import axios from "axios";
 // CONFIGURATION
 // ============================================================================
 
-const API_BASE_URL = import.meta.env.VITE_WOO_API_BASE_URL || "https://dp.ambalatea.com/wp-json/wc/v3";
+const API_BASE_URL = import.meta.env.VITE_WOO_API_BASE_URL || "https://api.crea8ive.solutions/wp-json/wc/v3";
 const CUSTOMER_KEY = import.meta.env.VITE_WOO_CUSTOMER_KEY;
 const CONSUMER_SECRET = import.meta.env.VITE_WOO_CONSUMER_SECRET;
-const WORDPRESS_BASE = "https://dp.ambalatea.com";
+const WORDPRESS_BASE = "https://api.crea8ive.solutions";
 const JWT_AUTH_URL = import.meta.env.VITE_JWT_AUTH_URL || `${WORDPRESS_BASE}/wp-json/jwt-auth/v1`;
+const PRODUCTS_API_URL = import.meta.env.VITE_PRODUCTS_API_BASE_URL || `${API_BASE_URL}/products`;
 
 // ============================================================================
 // AXIOS INSTANCE
@@ -509,9 +510,6 @@ export const validateCartStock = async (cartItems) => {
   return { valid: errors.length === 0, errors };
 };
 
-/**
- * Calculate order totals
- */
 export const calculateOrderTotal = (cartItems, shipping = 0, taxRate = 0, discount = 0) => {
   const subtotal = cartItems.reduce((sum, item) => {
     return sum + (item.price * item.quantity);
@@ -529,11 +527,4 @@ export const calculateOrderTotal = (cartItems, shipping = 0, taxRate = 0, discou
   };
 };
 
-// ============================================================================
-// EXPORTS
-// ============================================================================
-
-// Default export - the axios instance for custom calls
 export default wooAPI;
-
-// Named exports are above for specific functions

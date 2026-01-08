@@ -1,3 +1,0 @@
-Here is the direct link to check the products API response:
-
-https://dp.ambalatea.com/wp-json/wc/v3/products
